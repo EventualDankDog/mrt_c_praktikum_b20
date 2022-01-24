@@ -59,7 +59,7 @@ void list_clear(list_header *header) { //Headerpointer werden Null gesetzt, dami
     header->tail = NULL;
 }
 
-list_header neueDatensammlung(){
+list_header* neueDatensammlung(){
 
     //speicher für die einzelnen Datenarten der Liste reservieren
     datenart* Zeile = (datenart*) malloc(sizeof(datenart));
@@ -121,8 +121,8 @@ void daten_setzen(list_header *kopf, datenart datum, void* payload){ //selbe Pro
     t = kopf->head;
 
     if(kopf->head == NULL && kopf->tail == NULL){
-	fpintf(stderr, "Listenfehler (Gewünschte Liste ist nonexistent)");
-	//return NULL;
+	fprintf(stderr, "Listenfehler (Gewünschte Liste ist nonexistent)");
+	return NULL;
     }
     while(t != NULL){
         if(*(t -> datenart) == datum){
@@ -145,12 +145,12 @@ int get_Y(list_header* kopf){
     return *((int*) t->payload);
 }
 
-int* get_zaehler(list_header* kopf){
+int get_animationszaehler(list_header* kopf){
     list_element *t = finde_daten(kopf,ZAEHLER);
     return ((int*) t->payload);
 }
 
-int get_anzahl(list_header* kopf){
+int get_animationsanzahl(list_header* kopf{
     list_element *t = finde_daten(kopf,ANZAHL);
     return *((int*) t->payload);
 }
@@ -176,12 +176,12 @@ void set_Y(list_header* kopf, int* y){
     return;
 }
 
-void set_zaehler(list_header* kopf, int* zaehlerstand){
+void set_animationszaehler(list_header* kopf, int* zaehlerstand){
     daten_setzen(kopf,ZAEHLER,zaehlerstand);
     return;
 }
 
-void set_anzahl(list_header* kopf, int* anzahl){
+void set_animationsanzahl(list_header* kopf, int* anzahl){
     daten_setzen(kopf,ANZAHL,anzahl);
     return;
 }
@@ -194,7 +194,7 @@ void set_delay(list_header* kopf, long* delay){
 void set_zahlenfeld(list_header* kopf, int* array){
     daten_setzen(kopf,ZAHLENFELD,array);
     return;
-
+}
 int* neues_zahlenfeld(list_header* kopf){               //Speicher wird in der benötigten Größe des Arrays reserviert (Allokation)
     int* nz = (int *)malloc((get_X(kopf)+2)*(get_Y(kopf)+2)*sizeof (int ));
     return nz;

@@ -25,7 +25,7 @@ typedef struct list_el_t{       //Aufbau des Listenelements
    void *payload;
    datenart *datenart;
 
-}list_element;
+} list_element;
 
 
 typedef struct list_t{          //Aufbau des Listenheaders
