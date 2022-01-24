@@ -19,6 +19,37 @@
 // Config und Dateiarbeit Funktionen
 
 
+long delay_auslesen(char string[]){
+    int t=0,i=0;
+    long truedelay = 0;
+    
+    while (t<1) {  // Den String durchgehen bis die Zahlen beginnen und den Index der ersten Zahl speichern
+    int ASCII = (unsigned char) string[i];
+    if (ASCII>47 && ASCII<58){
+    break;
+    }
+    i++;
+    }
+    if((unsigned char) string[strlen(string)-2]==109){  // Check ob Pause in ms gegeben (wenn vorlestztes Zeichen = m ist)
+    
+        const char *Zahlen = &string[i];      // Neuen String beginnend bei der ersten Zahl (Anfang abschneiden)
+        float keinekommazahl = atof(Zahlen);  // Zahl Auslesen
+        truedelay = (long) keinekommazahl;   // Konvertierung zu long
+        return truedelay;
+        
+    }else{
+        
+        const char *Zahlen = &string[i];
+        float kommazahl = atof(Zahlen)*1000;   // Umrechnung von Sekunden in Millisekunden und Kommazahl Auslesen
+        truedelay = (long) kommazahl;         // Konvertierung zu long
+        return delay;
+        
+    }
+}
+
+
+
+
 void Datei_einlesen(list_header *kopf,char* Dateipfad){
 
     int* x = (int*) malloc(sizeof (int));
@@ -137,33 +168,5 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
     	}
 
 	perror ("\n config");
-    }
-}
-
-long delay_auslesen(char string[]){
-    int t=0,i=0;
-    long truedelay = 0;
-    
-    while (t<1) {  // Den String durchgehen bis die Zahlen beginnen und den Index der ersten Zahl speichern
-    int ASCII = (unsigned char) string[i];
-    if (ASCII>47 && ASCII<58){
-    break;
-    }
-    i++;
-    }
-    if((unsigned char) string[strlen(string)-2]==109){  // Check ob Pause in ms gegeben (wenn vorlestztes Zeichen = m ist)
-    
-        const char *Zahlen = &string[i];      // Neuen String beginnend bei der ersten Zahl (Anfang abschneiden)
-        float keinekommazahl = atof(Zahlen);  // Zahl Auslesen
-        truedelay = (long) keinekommazahl;   // Konvertierung zu long
-        return truedelay;
-        
-    }else{
-        
-        const char *Zahlen = &string[i];
-        float kommazahl = atof(Zahlen)*1000;   // Umrechnung von Sekunden in Millisekunden und Kommazahl Auslesen
-        truedelay = (long) kommazahl;         // Konvertierung zu long
-        return delay;
-        
     }
 }
