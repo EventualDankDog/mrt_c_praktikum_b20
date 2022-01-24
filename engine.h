@@ -1,6 +1,6 @@
 #ifndef ENGINE_HH
 #define ENGINE_HH
 
-// Engine Schnittstelle
+list_header* animationStep()
 
 #endif //ENGINE_HH
