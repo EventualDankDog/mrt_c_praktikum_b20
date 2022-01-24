@@ -147,7 +147,7 @@ int get_Y(list_header* kopf){
 
 int get_animationszaehler(list_header* kopf){
     list_element *t = finde_daten(kopf,ZAEHLER);
-    return ((int*) t->payload);
+    return *((int*) t->payload);
 }
 
 int get_animationsanzahl(list_header* kopf{
