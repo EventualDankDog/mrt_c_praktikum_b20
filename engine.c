@@ -11,7 +11,7 @@ list_header* animationStep (list_header* datenliste){
 
 	//relevante Daten holen und definieren
 	int *feld = get_zahlenfeld(datenliste);
-	int *neuesfeld = new_zahlenfeld(datenliste);
+	int *neuesfeld = neues_zahlenfeld(datenliste);
 	int x = get_X(datenliste) + 2;
 	int y = get_Y(datenliste) + 2;
 
