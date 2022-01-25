@@ -157,6 +157,9 @@ void grafik_create_paint_area(const double x_min, const double x_max,
 
 
 
+
+
+
 /** einzelnen Farbpunkt setzen.
  */
 int grafik_paint_point(double x, double y,
