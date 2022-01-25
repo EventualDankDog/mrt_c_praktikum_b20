@@ -19,9 +19,9 @@
 // Config und Dateiarbeit Funktionen
 
 
-long delay_auslesen(char string[]){
+int delay_auslesen(char string[]){
     int t=0,i=0;
-    long truedelay = 0;
+    int truedelay = 0;
     
     while (t<1) {  // Den String durchgehen bis die Zahlen beginnen und den Index der ersten Zahl speichern
     int ASCII = (unsigned char) string[i];
@@ -34,14 +34,14 @@ long delay_auslesen(char string[]){
     
         const char *Zahlen = &string[i];      // Neuen String beginnend bei der ersten Zahl (Anfang abschneiden)
         float keinekommazahl = atof(Zahlen);  // Zahl Auslesen
-        truedelay = (long) keinekommazahl;   // Konvertierung zu long
+        truedelay = (int) keinekommazahl;   // Konvertierung zu long
         return truedelay;
         
     }else{
         
         const char *Zahlen = &string[i];
         float kommazahl = atof(Zahlen)*1000;   // Umrechnung von Sekunden in Millisekunden und Kommazahl Auslesen
-        truedelay = (long) kommazahl;         // Konvertierung zu long
+        truedelay = (int) kommazahl;         // Konvertierung zu long
         return truedelay;
         
     }
@@ -152,7 +152,7 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
             set_animationsanzahl(kopf, anzahl);
         }
         else if(strncmp(string,"Pause:",6)==0) {
-            long t = delay_auslesen(Textzeile);
+            int t = delay_auslesen(Textzeile);
             *delay = t;
             set_delay(kopf, delay);
         }

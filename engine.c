@@ -5,9 +5,10 @@
 
 #include "engine.h"
 #include "daten.h"
+#include <string.h>
 
 
-void animationStep (list_header* datenliste){
+void evolution(list_header* datenliste){
 
 	//relevante Daten holen und definieren
 	int *feld = get_zahlenfeld(datenliste);
@@ -73,15 +74,13 @@ void animationStep (list_header* datenliste){
 		for (int i = 0;i<=x;i++){
 			feld[j*x + i]=neuesfeld[j*x + i];
 		}
-
 	}
 	int* counter = get_animationszaehler();
 	*counter = *counter+1;
-
 	*/
 
 	//direkt auf speicher zugreifen
-	memcpy(feld, neuesfeld, (x*y*szeof(int)));
+	memcpy(feld, neuesfeld, (x*y*sizeof(int)));
 	free (neuesfeld);
 
 	//return neuesfeld;

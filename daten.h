@@ -52,7 +52,7 @@ int get_animationsanzahl(list_header* kopf);
 void set_animationsanzahl(list_header* kopf, int* anzahl);
 
 //getter setter Pause zwischen Animationsschritten
-long get_delay(list_header* kopf);
+int get_delay(list_header* kopf);
 void set_delay(list_header* kopf, long* delay);
 
 //getter setter array-pointer
@@ -60,7 +60,7 @@ int* get_zahlenfeld(list_header* kopf);
 void set_zahlenfeld(list_header* kopf, int* zahlenfeld);
 
 //erzeugt ein Array aus Liste mit der Größe (Zeilen+2)*(Spalten+2)
-int* neeues_zahlenfeld(list_header* kopf);
+int* neues_zahlenfeld(list_header* kopf);
 
 void free_all(list_header* kopf);
 

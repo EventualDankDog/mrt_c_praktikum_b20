@@ -155,9 +155,9 @@ int get_animationsanzahl(list_header* kopf){
     return *((int*) t->payload);
 }
 
-long get_delay(list_header* kopf){
+int get_delay(list_header* kopf){
     list_element *t = finde_daten(kopf,DELAY);
-    return *((long*) t->payload);
+    return *((int*) t->payload);
 }
 
 int* get_zahlenfeld(list_header* kopf){

@@ -1,8 +1,8 @@
 #ifndef ENGINE_HH
 #define ENGINE_HH
 
-void animationStep()
-
-//ka ob hier noch irgendwas hinkommt
+#include "daten.h"
+#include <stdio.h>
+void evolution(list_header* datenliste);
 
 #endif //ENGINE_HH
