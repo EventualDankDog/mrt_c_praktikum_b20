@@ -4,6 +4,7 @@
 // GFX Schnittstelle
 //neuzeichnen des Buffers
 void print_animation_buffer(list_header* kopf);
+#inlcude "graphic.h"
 //Initialisierung des Fensters
 void init_frame(list_header* kopf);
 

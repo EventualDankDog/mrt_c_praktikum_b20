@@ -12,11 +12,11 @@
 // Funktionen zur Grafikausgabe
 
 void init_frame(list_header* kopf){ //Fenster
-	void grafik_init_window();
-	void grafik_create_paint_area(1, get_X(kopf)+1,1, get_Y(kopf)+1, get_X(kopf), get_Y(kopf); //Zeichenfläsche initialisieren
+	grafik_init_window();
+	grafik_create_paint_area(1, get_X(kopf)+1,1, get_Y(kopf)+1, get_X(kopf), get_Y(kopf); //Zeichenfläsche initialisieren
 }
 
-void print_animation_puffer(list_header* kopf){
+print_animation_puffer(list_header* kopf){
 	int* current_array = get_Zahlenfeld(kopf);
 	int* animationspuffer = neues_Zahlenfeld(kopf);
 
@@ -26,7 +26,7 @@ void print_animation_puffer(list_header* kopf){
 	int rows = get_Y(kopf) + 2;
 	color_name_t color;
 
-void grafik_lock_for_painting();
+	grafik_lock_for_painting();
 
 	for (int y = 0; y != get_Y(kopf)+1; y++) {
 		for(int x = 0; x != get_X(kopf)+1; x++) {
@@ -39,7 +39,7 @@ void grafik_lock_for_painting();
 			grafik_paint_point(x,y,color);
 		}
 	}
-void grafik_unluck_and_show();
+	grafik_unluck_and_show();
 	free(animationspuffer);
 
 }
