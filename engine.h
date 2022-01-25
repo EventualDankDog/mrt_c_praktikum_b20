@@ -1,7 +1,7 @@
 #ifndef ENGINE_HH
 #define ENGINE_HH
 
-list_header* animationStep()
+void animationStep()
 
 //ka ob hier noch irgendwas hinkommt
 
