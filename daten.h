@@ -44,7 +44,7 @@ int get_Y(list_header* kopf);
 void set_Y(list_header* kopf, int* y);
 
 //getter setter Animationszähler
-int get_animationszaehler(list_header* kopf);
+int* get_animationszaehler(list_header* kopf);
 void set_animationszaehler(list_header* kopf, int* zaehler);
 
 //getter setter maximale Animationsschritte
