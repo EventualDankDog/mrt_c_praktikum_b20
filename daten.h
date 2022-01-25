@@ -1,5 +1,5 @@
-#ifndef C-PRAKTIKUM_DATEN_H
-#define C-PRAKTIKUM_DATEN_H
+#ifndef C_PRAKTIKUM_DATEN_H
+#define C_PRAKTIKUM_DATEN_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -44,7 +44,7 @@ int get_Y(list_header* kopf);
 void set_Y(list_header* kopf, int* y);
 
 //getter setter Animationszähler
-int* get_animationszaehler(list_header* kopf);
+int get_animationszaehler(list_header* kopf);
 void set_animationszaehler(list_header* kopf, int* zaehler);
 
 //getter setter maximale Animationsschritte
@@ -60,7 +60,7 @@ int* get_zahlenfeld(list_header* kopf);
 void set_zahlenfeld(list_header* kopf, int* zahlenfeld);
 
 //erzeugt ein Array aus Liste mit der Größe (Zeilen+2)*(Spalten+2)
-int* new_zahlenfeld(list_header* kopf);
+int* neeues_zahlenfeld(list_header* kopf);
 
 void free_all(list_header* kopf);
 

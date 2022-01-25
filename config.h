@@ -3,7 +3,7 @@
 
 // Config Schnittstelle
 
-#include <daten.h>
+#include "daten.h"
 
 void Datei_einlesen(list_header *kopf,char* Dateipfad);
 

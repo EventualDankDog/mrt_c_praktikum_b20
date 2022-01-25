@@ -104,7 +104,7 @@ list_element* finde_daten(list_header *kopf, datenart datum){   // (nochmal Komm
     t = kopf->head;
 
     if(kopf->head == NULL && kopf->tail == NULL){               // Fehlerprüfung, falls eine Liste nicht existiert
-	fpintf(stderr, "Listenfehler (Gewünschte Liste ist nonexistent)");
+	fprintf(stderr, "Listenfehler (Gewünschte Liste ist nonexistent)");
 	return NULL;
     }
     while(t != NULL){                                           //Durchgehen der Liste bis das Element des Datentyps gefunden wird
@@ -122,7 +122,7 @@ void daten_setzen(list_header *kopf, datenart datum, void* payload){ //selbe Pro
 
     if(kopf->head == NULL && kopf->tail == NULL){
 	fprintf(stderr, "Listenfehler (Gewünschte Liste ist nonexistent)");
-	return NULL;
+	return;
     }
     while(t != NULL){
         if(*(t -> datenart) == datum){
@@ -150,7 +150,7 @@ int get_animationszaehler(list_header* kopf){
     return *((int*) t->payload);
 }
 
-int get_animationsanzahl(list_header* kopf{
+int get_animationsanzahl(list_header* kopf){
     list_element *t = finde_daten(kopf,ANZAHL);
     return *((int*) t->payload);
 }

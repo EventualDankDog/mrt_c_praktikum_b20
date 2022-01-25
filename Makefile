@@ -1,7 +1,7 @@
 # Quelldateien
 SOURCES := main.c graphic.c engine.c config.c gfx.c ui.c daten.c
 # zugehörige Include Dateien
-INCLUDES := graphic.h engine.h config.h gfx.h ui.h dateh.h
+INCLUDES := graphic.h engine.h config.h gfx.h ui.h daten.h
 PRECOMPILEDHEADERS := $(INCLUDES:.h=.h.gch)
 # aus Quelldateien resultierende Objektdateien
 OBJS := $(SOURCES:.c=.o)

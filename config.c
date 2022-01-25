@@ -42,7 +42,7 @@ long delay_auslesen(char string[]){
         const char *Zahlen = &string[i];
         float kommazahl = atof(Zahlen)*1000;   // Umrechnung von Sekunden in Millisekunden und Kommazahl Auslesen
         truedelay = (long) kommazahl;         // Konvertierung zu long
-        return delay;
+        return truedelay;
         
     }
 }
@@ -75,7 +75,7 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
     int vertikaler_Rahmen;
 
     unsigned long Dateiname = strlen(Dateipfad);
-    const char *letzten_Zeichen = &Dateipfad[length-4];           //Bestimmung letzte 4 Zeichen des Dateinamens
+    const char *letzten_Zeichen = &Dateipfad[Dateiname-4];           //Bestimmung letzte 4 Zeichen des Dateinamens
 
     if(strcmp(letzten_Zeichen,".txt") != 0){
         fprintf(stderr,"\nDatei ist keine .txt Datei\n");
