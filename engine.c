@@ -75,13 +75,15 @@ void evolution(list_header* datenliste){
 			feld[j*x + i]=neuesfeld[j*x + i];
 		}
 	}
-	int* counter = get_animationszaehler();
-	*counter = *counter+1;
 	*/
+	int* counter = get_animationszaehler(datenliste);
+	*counter = *counter+1;
+	
 
 	//direkt auf speicher zugreifen
 	memcpy(feld, neuesfeld, (x*y*sizeof(int)));
 	free (neuesfeld);
+
 
 	//return neuesfeld;
 }
