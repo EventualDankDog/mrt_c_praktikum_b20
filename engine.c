@@ -68,15 +68,21 @@ void animationStep (list_header* datenliste){
 	
 
 	//altes Zahlenfeld überschreiben
+	/*
 	for (int j = 0;j<=y;j++){
 		for (int i = 0;i<=x;i++){
-			neuesfeld[j*x + i]=feld[j*x + i];
+			feld[j*x + i]=neuesfeld[j*x + i];
 		}
 
 	}
 	int* counter = get_animationszaehler();
 	*counter = *counter+1;
 
+	*/
+
+	//direkt auf speicher zugreifen
+	memcpy(feld, neuesfeld, (x*y*szeof(int)));
+	free (neuesfeld);
 
 	//return neuesfeld;
 }
