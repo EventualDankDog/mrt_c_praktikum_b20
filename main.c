@@ -23,6 +23,9 @@ int main(void)
     list_header *kopf = neueDatensammlung();
     Datei_einlesen(kopf, "./settings-1.txt");
 
+
+    //printf("Zeilen sind: %i", get_X(kopf) );
+
     init_exit();
     init_frame(kopf);
 
@@ -32,6 +35,8 @@ int main(void)
         ui(kopf);
         
     }
+
+    void goodbye_msg();
     return 0;
 }
 

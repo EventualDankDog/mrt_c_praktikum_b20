@@ -40,6 +40,7 @@ void ui(list_header* kopf){
 							if(get_animationsanzahl(kopf)== get_animationszaehler(kopf)){ //überprüft ob noch eine Entwicklung gemacht werden muss
 								continue;
 							}
+
 							evolution(kopf);
 							print_animation(kopf);
 							continue; //in der Pause wird animationsschritt gezeigt

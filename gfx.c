@@ -32,9 +32,9 @@ print_animation(list_header* kopf){
 		for(int x = 0; x != Spalten+1; x++) {
 
 			if(animationspuffer[y * Spalten + x]==1) {
-				Farbe = Mandy;
+				Farbe = Valhalla;
 			}else if (animationspuffer[y * Spalten + x]==0){
-				Farbe = Opal;
+				Farbe = Viking;
 			}
 			grafik_paint_point(x,y,Farbe);
 		}

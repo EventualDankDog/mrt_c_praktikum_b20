@@ -58,7 +58,6 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
     int* anzahl = (int*) malloc(sizeof (int));
     long* delay = (long*) malloc(sizeof (long));
     
-    int variable;
 
     FILE *datei;
     datei = fopen(Dateipfad,"r");
@@ -66,13 +65,13 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
     char * Textzeile = NULL;
     char *string;
     string = malloc(1);
+
     char *puffer;
     int puffer_erreicht = 0;
     int pufferzeilen = 0;
     size_t laenge = 0;
     ssize_t Textzeilenlaenge;
-    int horizontaler_Rahmen;
-    int vertikaler_Rahmen;
+
 
     unsigned long Dateiname = strlen(Dateipfad);
     const char *letzten_Zeichen = &Dateipfad[Dateiname-4];           //Bestimmung letzte 4 Zeichen des Dateinamens
@@ -91,14 +90,17 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
 
     while((Textzeilenlaenge=getline(&Textzeile, &laenge, datei)) != -1){
 
+    int variable = 0;
 	string = realloc(string,Textzeilenlaenge+1);
 
 	sscanf(Textzeile, "%s %i", &string[0],&variable);        
 
-        variable = 0;
+
 
 	if (strcmp(Textzeile,"\n")==0 && puffer_erreicht==1){
-	
+
+	int horizontaler_Rahmen;
+	int vertikaler_Rahmen;
 	int *zahlenfeld = neues_zahlenfeld(kopf);
 	int Zeilen = get_Y(kopf)+2;
 	int Spalten = get_X(kopf)+2;
@@ -138,27 +140,34 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
         if (strncmp(string,"Spalten:",8)==0){
             *x = variable;
             set_X(kopf,x);
+            printf("\nSpalten: %i", get_Y(kopf));
+
         }
         if(strncmp(string,"Zeilen:",7)==0) {
             *y = variable;
             set_Y(kopf, y);
+            printf("\nZeilen: %i", get_Y(kopf));
         }
         else if(strncmp(string,"Schritt:",8)==0) {
             *zaehler = variable,
             set_animationszaehler(kopf, zaehler);
+            printf("\nZähler: %i", get_animationszaehler(kopf));
         }
         else if(strncmp(string,"Schritte:",9)==0) {
             *anzahl = variable;
             set_animationsanzahl(kopf, anzahl);
+            printf("\nAnzahl: %i", get_animationsanzahl(kopf));
         }
         else if(strncmp(string,"Pause:",6)==0) {
             int t = delay_auslesen(Textzeile);
             *delay = t;
             set_delay(kopf, delay);
+            printf("\nDelay: %i", get_delay(kopf));
         }
         else if(strncmp(string, "Animations-Puffer:",17)==0) {
             puffer_erreicht = 1;
             puffer=malloc((get_X(kopf)+2)*(get_Y(kopf)+2));
+            printf("\nPufferrechreicht: %i", puffer_erreicht);
             continue;
         }
 	if (puffer_erreicht==1) {                //Puffer einlesen
