@@ -7,7 +7,7 @@
 #include "daten.h"
 
 
-list_header* animationStep (list_header* datenliste){
+void animationStep (list_header* datenliste){
 
 	//relevante Daten holen und definieren
 	int *feld = get_zahlenfeld(datenliste);
@@ -32,24 +32,24 @@ list_header* animationStep (list_header* datenliste){
 					if(k==j && l==i){
 						continue; //mittleres Pixel wird ignoriert
 					}
-					tempCount=tempCount+feld[k*l];
+					tempCount=tempCount+feld[k*x+l];
 
 					//weiter mit regeln für Folgeschritt
 
 
-					if (feld[i*j]==0 && tempCount==3){
-						neuesfeld[i*j]=1;
+					if (feld[j*x+i]==0 && tempCount==3){
+						neuesfeld[j*x+i]=1;
 
 					}
-					if (feld[i*j]==0){
+					if (feld[j*x+i]==0){
 						if (tempCount<2){
-							neuesfeld[i*j]=0;
+							neuesfeld[j*x+1]=0;
 						}
 						if (tempCount==2 || tempCount==3){
-							neuesfeld[i*j]=1;
+							neuesfeld[j*x+1]=1;
 						}
 						if (tempCount>3){
-							neuesfeld[i*j]=0;
+							neuesfeld[j*x+i]=0;
 						}
 
 					}
@@ -65,11 +65,18 @@ list_header* animationStep (list_header* datenliste){
 
 	}
 
+	
+
+	//altes Zahlenfeld überschreiben
+	for (int j = 0;j<=y;j++){
+		for (int i = 0;i<=x;i++){
+			neuesfeld[j*x + i]=feld[j*x + i];
+		}
+
+	}
 	int* counter = get_animationszaehler();
 	*counter = *counter+1;
 
 
-
-
-	return neuesfeld;
+	//return neuesfeld;
 }
