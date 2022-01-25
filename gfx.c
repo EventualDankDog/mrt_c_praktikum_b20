@@ -8,16 +8,17 @@
 // für vorgegebene Grafik Funktionen grafik_paint_point() und andere:
 # include "graphic.h"
 
+
 // Funktionen zur Grafikausgabe
 
 void init_frame(list_header* kopf){ //Fenster
-	grafik_init_window();
-	grafik_create_paint_area(1, get_X(kopf)+1,1, get_Y(kopf)+1, get_X(kopf), get_Y(kopf); //Zeichenfläsche initialisieren
+	void grafik_init_window();
+	void grafik_create_paint_area(1, get_X(kopf)+1,1, get_Y(kopf)+1, get_X(kopf), get_Y(kopf); //Zeichenfläsche initialisieren
 }
 
 void print_animation_puffer(list_header* kopf){
-	int* current_array = get_array(kopf)
-	int* animationspuffer = new_arry(kopf);
+	int* current_array = get_Zahlenfeld(kopf);
+	int* animationspuffer = neues_Zahlenfeld(kopf);
 
 	memcpy(animationspuffer, current_array, (get_X(kopf)+2)*(get_Y(kopf)+2)*sizeof(int ));
 
