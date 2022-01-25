@@ -17,7 +17,7 @@
 
 	 
 // Config und Dateiarbeit Funktionen
-
+#define _GNU_SOURCE
 
 int delay_auslesen(char string[]){
     int t=0,i=0;
@@ -99,39 +99,44 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
 
 	if (strcmp(Textzeile,"\n")==0 && puffer_erreicht==1){
 
-	int horizontaler_Rahmen;
-	int vertikaler_Rahmen;
+	printf("\nHurensohn");
 	int *zahlenfeld = neues_zahlenfeld(kopf);
 	int Zeilen = get_Y(kopf)+2;
 	int Spalten = get_X(kopf)+2;
-	int Feldgroesse = (Zeilen)*(Spalten);
+	int Feldgroesse = Zeilen*Spalten;
 	int puffergroesse = (int) strlen(puffer);
 	int pufferspalten = (puffergroesse)/(pufferzeilen);
 	int verschiebung = 0;
-	
-	if((Spalten-pufferspalten)%2 || (Zeilen-pufferzeilen)%2){
-		horizontaler_Rahmen = (Spalten-pufferspalten)/2;
-		vertikaler_Rahmen = (Zeilen-pufferzeilen)/2;
-	}else{
-		horizontaler_Rahmen = (Spalten-pufferspalten-1)/2;
-		vertikaler_Rahmen = (Zeilen-pufferzeilen-1)/2;
-		fprintf(stderr, "\n\n Platzierung des Puffers aufgrund der Größe nicht mittig möglich.\n");
-		if((Spalten-pufferspalten)%2 == 1 ) verschiebung = 1;
-	}
-	int zahlenfeld_startindex = (vertikaler_Rahmen-1)*Spalten + horizontaler_Rahmen-1;
-	
-	memset(zahlenfeld, 0, Feldgroesse);
+	int horizontaler_Rahmen = (Spalten-pufferspalten)/2;
+	int vertikaler_Rahmen = (Zeilen-pufferzeilen)/2;
+	int zahlenfeld_startindex = (vertikaler_Rahmen-1)*Spalten + horizontaler_Rahmen+1;
 
+	int hR_gerade = Spalten-pufferspalten%2;
+	int vR_gerade = Zeilen-pufferzeilen%2;
+	printf("\nHurensohn2");
+	
+	 if (((Feldgroesse-puffergroesse)%2)==1 || (hR_gerade==1) || (vR_gerade==1)){
+		 fprintf(stderr, "\n\n Platzierung des Puffers aufgrund der Größe nicht mittig möglich.\n");
+	      }
+
+
+	if(hR_gerade == 1 ) verschiebung = 1;
+	printf("\nHurensohn3");
+	
+
+	memset(zahlenfeld, 0, Feldgroesse);
+	printf("\nHurensohn4");
 	int k, m;
 
 	for (k=0; k < pufferzeilen ;k++){
-		zahlenfeld_startindex = zahlenfeld_startindex + (Spalten-pufferspalten) + verschiebung;
+		zahlenfeld_startindex = zahlenfeld_startindex + horizontaler_Rahmen*2 + verschiebung;
 		for (m = 0; m < pufferspalten; m++){
 			int Animationszahl = 0;
-			if (puffer[m+k*pufferspalten] == "x") Animationszahl = 1;
+			if (puffer[m+k*pufferspalten] == 'x') Animationszahl = 1;
 			zahlenfeld[zahlenfeld_startindex + 1 + m] = Animationszahl;
 		}
 	}
+	printf("\nHurensohn4");
 	set_zahlenfeld(kopf, zahlenfeld);	
         }
     
@@ -173,9 +178,8 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
 	if (puffer_erreicht==1) {                //Puffer einlesen
             strcat(puffer,string);              //Pufferzeilen verbinden
             pufferzeilen = pufferzeilen+1;
-            //printf("\nAnimationspuffer:%s",puffer);
+            printf("\nAnimationspuffer:%s",puffer);
     	}
-
-	perror ("\n config");
     }
+    perror ("\n config");
 }

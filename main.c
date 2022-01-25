@@ -24,7 +24,7 @@ int main(void)
     Datei_einlesen(kopf, "./settings-1.txt");
 
 
-    //printf("Zeilen sind: %i", get_X(kopf) );
+    printf("Hurensohn5");
 
     init_exit();
     init_frame(kopf);
