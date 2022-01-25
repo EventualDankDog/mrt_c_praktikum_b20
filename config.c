@@ -17,7 +17,7 @@
 
 	 
 // Config und Dateiarbeit Funktionen
-
+#define _GNU_SOURCE
 
 int delay_auslesen(char string[]){
     int t=0,i=0;
@@ -58,7 +58,6 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
     int* anzahl = (int*) malloc(sizeof (int));
     long* delay = (long*) malloc(sizeof (long));
     
-    int variable;
 
     FILE *datei;
     datei = fopen(Dateipfad,"r");
@@ -66,13 +65,13 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
     char * Textzeile = NULL;
     char *string;
     string = malloc(1);
+
     char *puffer;
     int puffer_erreicht = 0;
     int pufferzeilen = 0;
     size_t laenge = 0;
     ssize_t Textzeilenlaenge;
-    int horizontaler_Rahmen;
-    int vertikaler_Rahmen;
+
 
     unsigned long Dateiname = strlen(Dateipfad);
     const char *letzten_Zeichen = &Dateipfad[Dateiname-4];           //Bestimmung letzte 4 Zeichen des Dateinamens
@@ -91,45 +90,53 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
 
     while((Textzeilenlaenge=getline(&Textzeile, &laenge, datei)) != -1){
 
+    int variable = 0;
 	string = realloc(string,Textzeilenlaenge+1);
 
 	sscanf(Textzeile, "%s %i", &string[0],&variable);        
 
-        variable = 0;
+
 
 	if (strcmp(Textzeile,"\n")==0 && puffer_erreicht==1){
-	
+
+	printf("\nHurensohn");
 	int *zahlenfeld = neues_zahlenfeld(kopf);
 	int Zeilen = get_Y(kopf)+2;
 	int Spalten = get_X(kopf)+2;
-	int Feldgroesse = (Zeilen)*(Spalten);
+	int Feldgroesse = Zeilen*Spalten;
 	int puffergroesse = (int) strlen(puffer);
 	int pufferspalten = (puffergroesse)/(pufferzeilen);
 	int verschiebung = 0;
-	
-	if((Spalten-pufferspalten)%2 || (Zeilen-pufferzeilen)%2){
-		horizontaler_Rahmen = (Spalten-pufferspalten)/2;
-		vertikaler_Rahmen = (Zeilen-pufferzeilen)/2;
-	}else{
-		horizontaler_Rahmen = (Spalten-pufferspalten-1)/2;
-		vertikaler_Rahmen = (Zeilen-pufferzeilen-1)/2;
-		fprintf(stderr, "\n\n Platzierung des Puffers aufgrund der Größe nicht mittig möglich.\n");
-		if((Spalten-pufferspalten)%2 == 1 ) verschiebung = 1;
-	}
-	int zahlenfeld_startindex = (vertikaler_Rahmen-1)*Spalten + horizontaler_Rahmen-1;
-	
-	memset(zahlenfeld, 0, Feldgroesse);
+	int horizontaler_Rahmen = (Spalten-pufferspalten)/2;
+	int vertikaler_Rahmen = (Zeilen-pufferzeilen)/2;
+	int zahlenfeld_startindex = (vertikaler_Rahmen-1)*Spalten + horizontaler_Rahmen+1;
 
+	int hR_gerade = Spalten-pufferspalten%2;
+	int vR_gerade = Zeilen-pufferzeilen%2;
+	printf("\nHurensohn2");
+	
+	 if (((Feldgroesse-puffergroesse)%2)==1 || (hR_gerade==1) || (vR_gerade==1)){
+		 fprintf(stderr, "\n\n Platzierung des Puffers aufgrund der Größe nicht mittig möglich.\n");
+	      }
+
+
+	if(hR_gerade == 1 ) verschiebung = 1;
+	printf("\nHurensohn3");
+	
+
+	memset(zahlenfeld, 0, Feldgroesse);
+	printf("\nHurensohn4");
 	int k, m;
 
 	for (k=0; k < pufferzeilen ;k++){
-		zahlenfeld_startindex = zahlenfeld_startindex + (Spalten-pufferspalten) + verschiebung;
+		zahlenfeld_startindex = zahlenfeld_startindex + horizontaler_Rahmen*2 + verschiebung;
 		for (m = 0; m < pufferspalten; m++){
 			int Animationszahl = 0;
-			if (puffer[m+k*pufferspalten] == "x") Animationszahl = 1;
+			if (puffer[m+k*pufferspalten] == 'x') Animationszahl = 1;
 			zahlenfeld[zahlenfeld_startindex + 1 + m] = Animationszahl;
 		}
 	}
+	printf("\nHurensohn4");
 	set_zahlenfeld(kopf, zahlenfeld);	
         }
     
@@ -138,35 +145,41 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
         if (strncmp(string,"Spalten:",8)==0){
             *x = variable;
             set_X(kopf,x);
+            printf("\nSpalten: %i", get_Y(kopf));
+
         }
         if(strncmp(string,"Zeilen:",7)==0) {
             *y = variable;
             set_Y(kopf, y);
+            printf("\nZeilen: %i", get_Y(kopf));
         }
         else if(strncmp(string,"Schritt:",8)==0) {
             *zaehler = variable,
             set_animationszaehler(kopf, zaehler);
+            printf("\nZähler: %i", get_animationszaehler(kopf));
         }
         else if(strncmp(string,"Schritte:",9)==0) {
             *anzahl = variable;
             set_animationsanzahl(kopf, anzahl);
+            printf("\nAnzahl: %i", get_animationsanzahl(kopf));
         }
         else if(strncmp(string,"Pause:",6)==0) {
             int t = delay_auslesen(Textzeile);
             *delay = t;
             set_delay(kopf, delay);
+            printf("\nDelay: %i", get_delay(kopf));
         }
         else if(strncmp(string, "Animations-Puffer:",17)==0) {
             puffer_erreicht = 1;
             puffer=malloc((get_X(kopf)+2)*(get_Y(kopf)+2));
+            printf("\nPufferrechreicht: %i", puffer_erreicht);
             continue;
         }
 	if (puffer_erreicht==1) {                //Puffer einlesen
             strcat(puffer,string);              //Pufferzeilen verbinden
             pufferzeilen = pufferzeilen+1;
-            //printf("\nAnimationspuffer:%s",puffer);
+            printf("\nAnimationspuffer:%s",puffer);
     	}
-
-	perror ("\n config");
     }
+    perror ("\n config");
 }
