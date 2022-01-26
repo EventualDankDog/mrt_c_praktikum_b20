@@ -34,6 +34,10 @@ void evolution(list_header* datenliste){
 					if(k==j && l==i){
 						continue; //mittleres Pixel wird ignoriert
 					}
+					if (feld[k*x+l] < 0 && feld[k*x+l] > 1){
+						continue;
+					}
+
 					tempCount=tempCount+feld[k*x+l];
 
 
@@ -48,12 +52,12 @@ void evolution(list_header* datenliste){
 				neuesfeld[j*x+i]=1;
 
 			}
-			if (feld[j*x+i]==0){
+			if (feld[j*x+i]==1){
 				if (tempCount<2){
-					neuesfeld[j*x+1]=0;
+					neuesfeld[j*x+i]=0;
 				}
 				if (tempCount==2 || tempCount==3){
-					neuesfeld[j*x+1]=1;
+					neuesfeld[j*x+i]=1;
 				}
 				if (tempCount>3){
 					neuesfeld[j*x+i]=0;
