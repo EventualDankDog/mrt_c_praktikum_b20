@@ -15,11 +15,12 @@ void evolution(list_header* datenliste){
 	int *neuesfeld = neues_zahlenfeld(datenliste);
 	int x = get_X(datenliste) + 2;
 	int y = get_Y(datenliste) + 2;
+	int* counter = get_animationszaehler(datenliste);
 
 	//zahlenfeld analysieren
 
-	for (int j = 0; j<=y;j++){
-		for (int i = 0;i<=x;i++){
+	for (int j = 0; j<y;j++){
+		for (int i = 0;i<x;i++){
 			int tempCount=0; //zähler um anzahl belegter Nachbarpixel zu speichern
 
 			for (int k = j-1;k<=j+1;k++){
@@ -35,34 +36,32 @@ void evolution(list_header* datenliste){
 					}
 					tempCount=tempCount+feld[k*x+l];
 
-					//weiter mit regeln für Folgeschritt
 
-
-					if (feld[j*x+i]==0 && tempCount==3){
-						neuesfeld[j*x+i]=1;
-
-					}
-					if (feld[j*x+i]==0){
-						if (tempCount<2){
-							neuesfeld[j*x+1]=0;
-						}
-						if (tempCount==2 || tempCount==3){
-							neuesfeld[j*x+1]=1;
-						}
-						if (tempCount>3){
-							neuesfeld[j*x+i]=0;
-						}
-
-					}
 
 
 				}
 			}
+			//weiter mit regeln für Folgeschritt
 
+
+			if (feld[j*x+i]==0 && tempCount==3){
+				neuesfeld[j*x+i]=1;
+
+			}
+			if (feld[j*x+i]==0){
+				if (tempCount<2){
+					neuesfeld[j*x+1]=0;
+				}
+				if (tempCount==2 || tempCount==3){
+					neuesfeld[j*x+1]=1;
+				}
+				if (tempCount>3){
+					neuesfeld[j*x+i]=0;
+				}
+
+			}
 
 		}
-
-
 
 	}
 
@@ -76,9 +75,8 @@ void evolution(list_header* datenliste){
 		}
 	}
 	*/
-	int counter = get_animationszaehler(datenliste);
-	*counter = *counter+1;
 	
+	*counter = *counter+1;
 
 	//direkt auf speicher zugreifen
 	memcpy(feld, neuesfeld, (x*y*sizeof(int)));
