@@ -124,12 +124,8 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
           set_delay(kopf, delay);
           //printf("\nDelay: %i", get_delay(kopf));
     }
-    if(strncmp(string, "Animations-Puffer:",17)==0) {
-          puffer_erreicht = 1;
-          puffer=malloc((get_X(kopf)+2)*(get_Y(kopf)+2));
-          //printf("\nPufferrechreicht: %i", puffer_erreicht);
-          continue;
-    }
+
+
 
     if (strcmp(Textzeile,"\n")==0 && puffer_erreicht==1){
 
@@ -172,18 +168,34 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
     		}
     	}
     	set_zahlenfeld(kopf, zahlenfeld);
+
+    	return;
+
     	/*for (int u=0;u<Zeilen;u++) {
     	            	printf("\n");
     	            	for (int w=0;w<Spalten;w++){
     	            		printf("%i ",zahlenfeld[u*Spalten+w]);
     	            	}
             }*/
+
+    	return;
+
     	}
-	if (puffer_erreicht==1) {                      //Puffer einlesen
-            strcat(puffer,string);              //Pufferzeilen verbinden
-            pufferzeilen = pufferzeilen+1;
-            //printf("\nAnimationspuffer:%s",puffer);
-    	}
+
+
+    if(strncmp(string, "Animations-Puffer:",17)==0) {
+              puffer_erreicht = 1;
+              puffer=malloc((get_X(kopf)+2)*(get_Y(kopf)+2));
+              //printf("\nPufferrechreicht: %i", puffer_erreicht);
+              continue;
+        }
+
+        if (puffer_erreicht==1) {                      //Puffer einlesen
+                    strcat(puffer,string);              //Pufferzeilen verbinden
+                    pufferzeilen = pufferzeilen+1;
+                    //printf("\nAnimationspuffer:%s",puffer);
+                    }
+
     }
     perror ("\n config");
 }

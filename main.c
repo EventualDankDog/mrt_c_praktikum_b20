@@ -21,10 +21,9 @@ static void init_exit(void);
 int main(void)
 {
     list_header *kopf = neueDatensammlung();
-    Datei_einlesen(kopf, "./settings-1.txt");
+    Datei_einlesen(kopf, "./glider.txt");
 
 
-    printf("Hurensohn5");
 
     init_exit();
     init_frame(kopf);

@@ -37,7 +37,7 @@ void ui(list_header* kopf){
 						case Pause:
 							return; //mit Leertaste weitermachen
 						case Schritt:
-							if(get_animationsanzahl(kopf)== get_animationszaehler(kopf)){ //überprüft ob noch eine Entwicklung gemacht werden muss
+							if(get_animationsanzahl(kopf)== *get_animationszaehler(kopf)){ //überprüft ob noch eine Entwicklung gemacht werden muss
 								continue;
 							}
 
@@ -61,7 +61,7 @@ void ui(list_header* kopf){
 								case Pause:
 									return; //mit Leertaste weitermachen
 								case Schritt:
-									if(get_animationsanzahl(kopf) == get_animationszaehler(kopf)){ //überprüft ob noch eine Entwicklung gemacht werden muss
+									if(get_animationsanzahl(kopf) == *get_animationszaehler(kopf)){ //überprüft ob noch eine Entwicklung gemacht werden muss
 										continue;
 									}
 									evolution(kopf);
@@ -72,7 +72,7 @@ void ui(list_header* kopf){
 
 		default:
 
-				if(get_animationsanzahl(kopf)== get_animationszaehler(kopf)){
+				if(get_animationsanzahl(kopf)== *get_animationszaehler(kopf)){
 					return ;
 				}
 
