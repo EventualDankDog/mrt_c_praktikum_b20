@@ -51,18 +51,18 @@ int delay_auslesen(char string[]){
 
 void Datei_einlesen(list_header *kopf,char* Dateipfad){
 
-    int* x = (int*) malloc(sizeof (int));
+    int* x = (int*) malloc(sizeof (int));  // Speicher für alle Werte allozieren
     int* y = (int*) malloc(sizeof (int));
     int* zaehler = (int*) malloc(sizeof (int));
     int* anzahl = (int*) malloc(sizeof (int));
     int* delay = (int*) malloc(sizeof (int));
     
 
-    FILE *datei;
+    FILE *datei;  // Datei öffnen und lesen
     datei = fopen(Dateipfad,"r");
 
     char *puffer;
-    char * Textzeile = NULL;
+    char * Textzeile = NULL;  // Hilfsvariablen
     char *string;
     string = malloc(1);
 
@@ -73,30 +73,30 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
 
 
     unsigned long Dateiname = strlen(Dateipfad);
-    const char *letzten_Zeichen = &Dateipfad[Dateiname-4];           //Bestimmung letzte 4 Zeichen des Dateinamens
+    const char *letzten_Zeichen = &Dateipfad[Dateiname-4];     //Bestimmung letzte 4 Zeichen des Dateinamens
 
     if(strcmp(letzten_Zeichen,".txt") != 0){
-        fprintf(stderr,"\nDatei ist keine .txt Datei\n");
+        fprintf(stderr,"\nDatei ist keine .txt Datei\n"); // Fehlerüberprüfung ob es eine .txt ist
         return;
     }
 
 
     if(datei == NULL){
-        fprintf( stderr, "\nDatei (%s) ist nonexistent\n",Dateipfad);
+        fprintf( stderr, "\nDatei (%s) ist nonexistent\n",Dateipfad); // Fehler ob die Datei leer ist
         return;
     }
 
 
-    while((Textzeilenlaenge=getline(&Textzeile, &laenge, datei)) != -1){
+    while((Textzeilenlaenge=getline(&Textzeile, &laenge, datei)) != -1){ // Schleife über alle Textzeilen
 
-    int variable = 0;
-	string = realloc(string,Textzeilenlaenge+1);
+    int variable = 0; // Zahlenwert der Textzeile
+	string = realloc(string,Textzeilenlaenge+1); // String der Textzeilen und jedweils neue Speicherallokation
 
-	sscanf(Textzeile, "%s %i", &string[0],&variable);
+	sscanf(Textzeile, "%s %i", &string[0],&variable); // Belegung von variable und string mit den Werten aus der Datei-Textzeile
 
-	if (strcmp(Textzeile,"\n")==0 && puffer_erreicht == 0) continue;
+	if (strcmp(Textzeile,"\n")==0 && puffer_erreicht == 0) continue; // Leere Zeile vor dem Animations-Puffer überspringen
 
-	if (strncmp(string,"Spalten:",8)==0){
+	if (strncmp(string,"Spalten:",8)==0){ // Überprüfung nach den jeweiligen Werten und einschreiben in die Datenstruktur
 	     *x = variable;
 	     set_X(kopf,x);
 	     //printf("\nSpalten: %i", get_Y(kopf));
@@ -127,22 +127,21 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
 
 
 
-    if (strcmp(Textzeile,"\n")==0 && puffer_erreicht==1){
+    if (strcmp(Textzeile,"\n")==0 && puffer_erreicht==1){ // Bescheiben des Zahlenfeldes mit den Eingelesen
 
 
-    	int *zahlenfeld = neues_zahlenfeld(kopf);
+    	int *zahlenfeld = neues_zahlenfeld(kopf); // Neues Feld erstellen was später beschrieben wird
     	int Zeilen = get_Y(kopf)+2;
-    	int Spalten = get_X(kopf)+2;
+    	int Spalten = get_X(kopf)+2;   // Hilfsvariablen zur Besetzung des Feldes
     	int Feldgroesse = Zeilen*Spalten;
     	int puffergroesse = strlen(puffer);
     	int pufferspalten = (puffergroesse)/(pufferzeilen);
-    	//printf("Pgröße: %i \n Pspalten: %i", puffergroesse, pufferspalten);
-    	int verschiebung = 0;
+    	//printf("Pgröße: %i \n Pspalten: %i", puffergroesse, pufferspalten); // Ausgabe zur Überprüfung
     	int horizontaler_Rahmen = (Spalten-pufferspalten)/2;
     	int vertikaler_Rahmen = (Zeilen-pufferzeilen)/2;
     	int zahlenfeld_startindex = vertikaler_Rahmen*Spalten + horizontaler_Rahmen;
 
-    	//printf("\nIndex: %i", zahlenfeld_startindex);
+    	//printf("\nIndex: %i", zahlenfeld_startindex); // Ausgabe zur Überprüfung
     	int hR_gerade = Spalten-pufferspalten%2;
     	int vR_gerade = Zeilen-pufferzeilen%2;
 
@@ -152,11 +151,9 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
     	      }
 
 
-    	if(hR_gerade == 1 ) verschiebung = 1;
 
 
-
-    	memset(zahlenfeld, 0, Feldgroesse);
+    	memset(zahlenfeld, 0, Feldgroesse);  // Feld auf 0 initialisieren
 
     	for (int k=0; k < pufferzeilen ;k++){
     		if(k != 0)zahlenfeld_startindex = zahlenfeld_startindex + Spalten;
@@ -171,7 +168,7 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
 
     	return;
 
-    	/*for (int u=0;u<Zeilen;u++) {
+    	/*for (int u=0;u<Zeilen;u++) {  // Testausgabefunktion des Feldes
     	            	printf("\n");
     	            	for (int w=0;w<Spalten;w++){
     	            		printf("%i ",zahlenfeld[u*Spalten+w]);
@@ -183,17 +180,16 @@ void Datei_einlesen(list_header *kopf,char* Dateipfad){
     	}
 
 
-    if(strncmp(string, "Animations-Puffer:",17)==0) {
+    if(strncmp(string, "Animations-Puffer:",17)==0) { // Check ob man beim Puffer ist
               puffer_erreicht = 1;
               puffer=malloc((get_X(kopf)+2)*(get_Y(kopf)+2));
               //printf("\nPufferrechreicht: %i", puffer_erreicht);
               continue;
         }
-
-        if (puffer_erreicht==1) {                      //Puffer einlesen
-                    strcat(puffer,string);              //Pufferzeilen verbinden
-                    pufferzeilen = pufferzeilen+1;
-                    //printf("\nAnimationspuffer:%s",puffer);
+    if (puffer_erreicht==1) {                      //Puffer einlesen
+                strcat(puffer,string);              //Pufferzeilen verbinden
+                pufferzeilen = pufferzeilen+1;
+                //printf("\nAnimationspuffer:%s",puffer);
                     }
 
     }

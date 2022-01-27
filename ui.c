@@ -15,71 +15,84 @@
 
 // Funktionen um Nutzerinteraktionen zu behandeln
 
-void ui(list_header* kopf){
 
-	while(grafik_user_input(10) > Fehler);
+int naechster_Schritt(list_header* kopf){
+
+	int j = 0;
+	if(get_animationsanzahl(kopf)== *get_animationszaehler(kopf)){
+		// check ob programm am ende
+			j = 1;
+			return j;
+	}
+
+	evolution(kopf);
+	print_animation(kopf);
+	return j;
+
+}
+
+int ui(list_header* kopf){
+
+	int k = 0;
 
 		switch(grafik_user_input(get_delay(kopf)))
 		{
-			case Beenden:
-				exit(0); //q = 0, beenden
-			case Pause:
+			case Beenden: // k = 1 zurückgeben --> Ende
+				k = 1;
+				return k;
+			case Pause: // Leertaste --> Pausieren
 			{
-				while(1) //1 = Leertaste --> Pause
+				while(1) // Endlosschleife für Pause
 				{
-					while(grafik_user_input(10) > Fehler);
-
 
 					switch(grafik_user_input(get_delay(kopf)))
 						{
 						case Beenden:
-							exit(0); //q = 0, beenden
+							k= 1;
+							return k ;
 						case Pause:
-							return; //mit Leertaste weitermachen
-						case Schritt:
-							if(get_animationsanzahl(kopf)== *get_animationszaehler(kopf)){ //überprüft ob noch eine Entwicklung gemacht werden muss
-								continue;
-							}
 
-							evolution(kopf);
-							print_animation(kopf);
-							continue; //in der Pause wird animationsschritt gezeigt
+							return k; //mit Leertaste weitermachen
+						case Schritt:
+							k = naechster_Schritt(kopf); // Nächsten Schritt machen
+							continue;
+
 						}
 				}
 		}
+
 		case Schritt:
 		{
-			evolution(kopf); //nächster Animationschritt
-			while(1) //1 = Leertaste --> Pause
+			k = naechster_Schritt(kopf);
+
+			while(1) //Leertaste --> Pause
 						{
-							while(grafik_user_input(10) > Fehler);
 
 							switch(grafik_user_input(get_delay(kopf)))
 								{
 								case Beenden:
-									exit(0); //q = 0, beenden
+									k= 1;
+									return k ;
 								case Pause:
-									return; //mit Leertaste weitermachen
+									return k; //mit Leertaste weitermachen
 								case Schritt:
-									if(get_animationsanzahl(kopf) == *get_animationszaehler(kopf)){ //überprüft ob noch eine Entwicklung gemacht werden muss
-										continue;
-									}
-									evolution(kopf);
-									print_animation(kopf);
+									k = naechster_Schritt(kopf);
 									continue; //in der Pause wird animationsschritt gezeigt
 								}
 						}
 
+
 		default:
 
 				if(get_animationsanzahl(kopf)== *get_animationszaehler(kopf)){
-					return ;
+					k = 1;
+					return k;
 				}
 
 
 				evolution(kopf);
 
-				return; // normales Ablaufen der Animation
+				return k; // normales Ablaufen der Animation
 
 
 	}

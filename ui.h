@@ -5,6 +5,6 @@
 
 #include "daten.h"
 
-void ui(list_header* kopf);
+int ui(list_header* kopf);
 
 #endif //UI_HH

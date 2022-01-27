@@ -23,15 +23,22 @@ int main(void)
     list_header *kopf = neueDatensammlung();
     Datei_einlesen(kopf, "./glider.txt");
 
+    int i = 0;
+	if(get_animationsanzahl(kopf)== *get_animationszaehler(kopf)){
+		i = 1;
+		fprintf(stderr ,"\n Maximale Schritte Zahl gleich der Startschrittzahl, Animation nicht möglich!");
+	}
+	else {
+		init_exit();
+	    init_frame(kopf);
+	}
 
 
-    init_exit();
-    init_frame(kopf);
+    while(0 == i){
 
-    while(1){
 
         print_animation(kopf);
-        ui(kopf);
+        i = ui(kopf);
         
     }
 
